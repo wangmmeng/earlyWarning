@@ -24,6 +24,18 @@ export default {
         // map.setMapStyle(mapStyle);
       //  map.setMapType(BMAP_HYBRID_MAP);
         // console.log(BMap, map);
+        //风场层
+        // 添加canvas叠加层
+        // var canvasSource = getTextureCanvas();
+        // var pStart = new BMapGL.Point(116.447717, 39.919173);
+        // var pEnd = new BMapGL.Point(116.453125, 39.923475);
+        // var bounds = new BMapGL.Bounds(new BMapGL.Point(pStart.lng, pEnd.lat), new BMapGL.Point(pEnd.lng, pStart.lat));
+        // var canvasOverlay = new BMapGL.GroundOverlay(bounds, {
+        //     type: 'canvas',
+        //     url: canvasSource,
+        //     opacity: 0.9
+        // });
+        // map.addOverlay(canvasOverlay);
         map.setMapStyle({
             styleJson:[{//道路清空
                     "featureType": "road",
