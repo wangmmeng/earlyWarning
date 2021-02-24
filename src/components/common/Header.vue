@@ -7,7 +7,7 @@
             </div>
             <div class="menu">
                 <el-menu
-                    :default-active="activeIndex2"
+                    :default-active="activeIndex1"
                     class="el-menu-demo"
                     mode="horizontal"
                     @select="handleSelect"
@@ -88,7 +88,13 @@
 export default {
     data(){
         return{
-            activeIndex2:1
+            activeIndex1:"1",
+            activeIndex2:"1"
+        }
+    },
+    methods:{
+        handleSelect(){
+
         }
     }
 }

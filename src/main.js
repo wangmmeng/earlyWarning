@@ -6,6 +6,9 @@ import router from './router'
 import BaiduMap from 'vue-baidu-map'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css'; // 默认主题
+import axios from 'axios';
+
+Vue.prototype.$axios=axios;
 
 Vue.use(BaiduMap,{
     ak:"BQyvUhyMQOdezKh13gdjZ3en"
