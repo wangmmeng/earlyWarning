@@ -1,6 +1,6 @@
 <template>
     <div class="main">
-      <v-map></v-map>
+      <v-map v-show="true"></v-map>
       <v-header></v-header>
     </div>
 </template>
@@ -21,5 +21,7 @@ export default {
     .main{
       width:100%;
       height:100%;
+      background-image: url("../assets/image/bg.jpg");
+      background-size:100% 100%;
     }
 </style>

@@ -1,13 +1,29 @@
 <!--地图组件：包括对地图区域边界的设置、地图类型的切换-->
 <template>
-    <baidu-map id="map" center="山东" :scroll-wheel-zoom="true" @ready="handler"> 
- 
+    <baidu-map id="map" center="山东省" :scroll-wheel-zoom="true" @ready="handler"> 
+        <bm-boundary name="山东省" :strokeWeight="3" strokeColor="#fff" fillOpacity="0"></bm-boundary>
+        <bm-boundary name="山东省济南市" :strokeWeight="2" strokeColor="#fff" fillOpacity="0"></bm-boundary>
+        <bm-boundary name="山东省潍坊市" :strokeWeight="2" strokeColor="#fff" fillOpacity="0"></bm-boundary>
+        <bm-boundary name="山东省烟台市" :strokeWeight="2" strokeColor="#fff" fillOpacity="0"></bm-boundary>
+        <bm-boundary name="山东省青岛市" :strokeWeight="2" strokeColor="#fff" fillOpacity="0"></bm-boundary>
+        <bm-boundary name="山东省淄博市" :strokeWeight="2" strokeColor="#fff" fillOpacity="0"></bm-boundary>
+        <bm-boundary name="山东省枣庄市" :strokeWeight="2" strokeColor="#fff" fillOpacity="0"></bm-boundary>
+        <bm-boundary name="山东省东营市" :strokeWeight="2" strokeColor="#fff" fillOpacity="0"></bm-boundary>
+        <bm-boundary name="山东省济宁市" :strokeWeight="2" strokeColor="#fff" fillOpacity="0"></bm-boundary>
+        <bm-boundary name="山东省泰安市" :strokeWeight="2" strokeColor="#fff" fillOpacity="0"></bm-boundary>
+        <bm-boundary name="山东省威海市" :strokeWeight="2" strokeColor="#fff" fillOpacity="0"></bm-boundary>
+        <bm-boundary name="山东省日照市" :strokeWeight="2" strokeColor="#fff" fillOpacity="0"></bm-boundary>
+        <bm-boundary name="山东省临沂市" :strokeWeight="2" strokeColor="#fff" fillOpacity="0"></bm-boundary>
+        <bm-boundary name="山东省聊城市" :strokeWeight="2" strokeColor="#fff" fillOpacity="0"></bm-boundary>
+        <bm-boundary name="山东省德州市" :strokeWeight="2" strokeColor="#fff" fillOpacity="0"></bm-boundary>
+        <bm-boundary name="山东省滨州市" :strokeWeight="2" strokeColor="#fff" fillOpacity="0"></bm-boundary>
+        <bm-boundary name="山东省菏泽市" :strokeWeight="2" strokeColor="#fff" fillOpacity="0"></bm-boundary>
     </baidu-map>
 </template>
 
 <script>
-
 import {WeatherWind} from "./weatherwind"
+import img from "../../assets/image/img.png"
 export default {
    data() {
         return {
@@ -22,10 +38,84 @@ export default {
   methods: {
     // 给地图设置主题色，我设置的是黑夜主题
     handler({BMap,map}) {
+         //地图风格
+        map.setMapStyle({
+            styleJson:
+        //     [{//道路清空
+        //             "featureType": "road",
+        //             "elementType": "all",
+        //             "stylers": {
+        //                 "visibility": "off"
+        //             }
+        //         },
+        //         {//行政边界改变颜色
+        //             "featureType": "boundary",
+        //             "elementType": "all",
+        //             "stylers": {
+        //                 "color": "#3d85c6ff",
+        //                 "visibility": "on"
+        //         }
+        //     }
+        //   ]
+        [
+            {
+                    "featureType": "water",
+                    "elementType": "all",
+                    "stylers": {
+                              "color": "#044161ff",
+                              "visibility": "on"
+                    }
+                    
+          },
+           {
+                    "featureType": "land",
+                    "elementType": "all",
+                    "stylers": {
+                              "color": "#004981ff",
+                              "visibility": "on"
+                    }
+          },
+           {
+                    "featureType": "districtlabel",
+                    "elementType": "labels.text.fill",
+                    "stylers": {
+                              "color": "#ffffffff",
+                              "visibility": "on"
+                    }
+          },
+         {
+                    "featureType": "districtlabel",
+                    "elementType": "labels.text.stroke",
+                    "stylers": {
+                              "color": "rgba(0,0,0,0)",
+                              "visibility": "on"
+                    }
+          },
+          {
+                    "featureType": "road",
+                    "elementType": "all",
+                    "stylers": {
+                        "visibility": "off"
+                    }
+            },
+            {
+                    "featureType": "boundary",
+                    "elementType": "all",
+                    "stylers": {
+                              "color": "#029fd4ff",
+                              "visibility": "on"
+                    }
+          }
+        ]
+        });
+      //  map.setMapType(BMAP_HYBRID_MAP);
+        
     
         // let mapStyle={style:"midnight"}
         // map.setMapStyle(mapStyle);
       //  map.setMapType(BMAP_HYBRID_MAP);
+
+
     
        // 添加图片叠加层
         var pStart = new BMap.Point(114.65,34.25);
@@ -35,6 +125,8 @@ export default {
             opacity: 0.6
         });
         imgOverlay.setImageURL("http://58.59.29.50:15004/sdfiles/griddata/yb/2021/02/24/temp/08/202102240800.png");
+    //    imgOverlay.setImageURL(img);
+        console.log(imgOverlay);
         map.addOverlay(imgOverlay);
         // while(imgOverlay.Pg){
         //     imgOverlay.Pg.style.height="100%"
@@ -42,24 +134,25 @@ export default {
         // } 
 
         //地图风格
-        map.setMapStyle({
-            styleJson:[{//道路清空
-                    "featureType": "road",
-                    "elementType": "all",
-                    "stylers": {
-                        "visibility": "off"
-                    }
-                },
-                {//行政边界改变颜色
-                    "featureType": "boundary",
-                    "elementType": "all",
-                    "stylers": {
-                        "color": "#3d85c6ff",
-                        "visibility": "on"
-                }
-            }
-          ]
-        });
+        // map.setMapStyle({
+        //     styleJson:[{//道路清空
+        //             "featureType": "road",
+        //             "elementType": "all",
+        //             "stylers": {
+        //                 "visibility": "off"
+        //             }
+        //         },
+        //         {//行政边界改变颜色
+        //             "featureType": "boundary",
+        //             "elementType": "all",
+        //             "stylers": {
+        //                 "color": "#3d85c6ff",
+        //                 "visibility": "on"
+        //         }
+        //     }
+        //   ]
+        // });
+        
         function CanvasLayer(t) {
             this.options = t || {}, this.paneName = this.options.paneName || "labelPane", this.zIndex = this.options.zIndex || 0, this._map = t.map, this._lastDrawTime = null, this.show()
         }
@@ -69,7 +162,7 @@ export default {
                 e = this.ctx = this.canvas.getContext("2d");
             a.style.cssText = "position:absolute;left:0;top:0;z-index:" + this.zIndex + ";", this.adjustSize(), this.adjustRatio(e), t.getPanes()[this.paneName].appendChild(a);
             var i = this;
-            return t.addEventListener("resize", function() {
+            t.addEventListener("resize", function() {
                 i.adjustSize(), i._draw()
             }), this.canvas
         }, CanvasLayer.prototype.adjustSize = function() {
