@@ -25,3 +25,18 @@ ul{
     padding: 0;
     margin: 0;
 }
+/* 谷歌内核滚动条样式 */
+::-webkit-scrollbar-thumb {
+	background: rgba(150,150,150, 0.4);
+	border-radius: 99px;
+}
+
+::-webkit-scrollbar-track {
+	background: rgba(150, 150, 150, 0.2);
+}
+
+::-webkit-scrollbar {
+	background: rgba(150, 150, 150, 0);
+	width: 5px;
+	height: 10px;
+}

@@ -57,11 +57,11 @@
              山东省突发事件预警信息支持系统
             </h1>           
             <div class="title-middle clearFloat">
-                <div>2021-02-25 周四</div>
+                <div>{{currentTime}}</div>
                 <div>
                     <i class="el-icon-user-solid"></i>Admin
                     &nbsp;&nbsp;
-                    <i class="el-icon-s-tools"></i>设置
+                    <label @click="mapSet" style="cursor:pointer"><i class="el-icon-s-tools"></i>设置</label>
                 </div>
             </div>
             <div class="line-bottom"></div>
@@ -97,16 +97,26 @@
 </template>
 
 <script>
+import {DateGrid} from './date';
 export default {
     data(){
         return{
-            activeIndex1:"1",
-            activeIndex2:"1"
+            currentTime:"",//当前时间
+            activeIndex:"1"
         }
+    },
+    created() {//在模板渲染成html前调用，即通常初始化某些属性值，然后再渲染成视图。
+		this.currentTime=DateGrid(new Date(),"yyyy-MM-dd")+" "+DateGrid(new Date(),"ww")
+    },
+    mounted(){//在模板渲染成html后调用，通常是初始化页面完成后，再对html的dom节点进行一些需要的操作
+
     },
     methods:{
         handleSelect(){
 
+        },
+        mapSet(){
+            this.$store.state.mapSetShow=!this.$store.state.mapSetShow
         }
     }
 }
