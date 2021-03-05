@@ -40,3 +40,8 @@ ul{
 	width: 5px;
 	height: 10px;
 }
+.clearFloat::after{
+	content:"";
+	display:block;
+	clear: both;
+}

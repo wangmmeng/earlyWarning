@@ -15,7 +15,16 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "element-ui": "^2.15.0",
+    "echarts": "^4.9.0",
+    "element-ui": "^2.15.1",
+    "leaflet": "^1.7.1",
+    "leaflet-canvas-marker": "^0.2.0",
+    "leaflet-velocity": "^1.9.0",
+    "leaflet.markercluster": "^1.4.1",
+    "proj4": "^2.7.2",
+    "proj4leaflet": "^1.0.2",
+    "save": "^2.4.0",
+    "stylus-loader": "^2.1.1",
     "vue": "^2.5.2",
     "vue-baidu-map": "^0.21.22",
     "vue-bmap-gl": "0.0.11",
@@ -42,7 +51,7 @@
     "chromedriver": "^2.27.2",
     "copy-webpack-plugin": "^4.0.1",
     "cross-spawn": "^5.0.1",
-    "css-loader": "^0.28.0",
+    "css-loader": "^0.28.11",
     "eslint": "^4.15.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-friendly-formatter": "^3.0.0",
@@ -70,6 +79,8 @@
     "selenium-server": "^3.0.1",
     "semver": "^5.3.0",
     "shelljs": "^0.7.6",
+    "style-loader": "^2.0.0",
+    "stylus": "^0.54.8",
     "uglifyjs-webpack-plugin": "^1.1.1",
     "url-loader": "^0.5.8",
     "vue-jest": "^1.0.2",
@@ -85,14 +96,14 @@
     "node": ">= 6.0.0",
     "npm": ">= 3.0.0"
   },
-  "eslintConfig":{
+  "eslintConfig": {
     "rules": {
-        "generator-star-spacing": "off",
-        "no-tabs":"off",
-        "no-unused-vars":"off",
-        "no-console":"off",
-        "no-irregular-whitespace":"off",
-        "no-debugger": "off"
+      "generator-star-spacing": "off",
+      "no-tabs": "off",
+      "no-unused-vars": "off",
+      "no-console": "off",
+      "no-irregular-whitespace": "off",
+      "no-debugger": "off"
     }
   },
   "browserslist": [

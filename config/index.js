@@ -10,11 +10,32 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
+      '/SDYJXX': {
+        target:'http://58.59.29.50:15013/SDYJXX/', // 你请求的第三方接口
+        changeOrigin:true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
+        pathRewrite:{  // 路径重写，
+          '^/SDYJXX': ''  // 替换target中的请求地址，也就是说以后你在请求http://api.douban.com/v2/XXXXX这个地址的时候直接写成/api即可。
+        }
+      },
       '/api': {
         target:'http://58.59.29.50:15005/api/', // 你请求的第三方接口
         changeOrigin:true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
         pathRewrite:{  // 路径重写，
           '^/api': ''  // 替换target中的请求地址，也就是说以后你在请求http://api.douban.com/v2/XXXXX这个地址的时候直接写成/api即可。
+        }
+      },
+      '/shandongt': {
+        target:'http://58.59.29.50:15004/shandongt/', // 你请求的第三方接口
+        changeOrigin:true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
+        pathRewrite:{  // 路径重写，
+          '^/shandongt': ''  // 替换target中的请求地址，也就是说以后你在请求http://api.douban.com/v2/XXXXX这个地址的时候直接写成/api即可。
+        }
+      },
+      '/shandong': {
+        target:'http://58.59.29.50:15004/shandong/', // 你请求的第三方接口
+        changeOrigin:true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
+        pathRewrite:{  // 路径重写，
+          '^/shandong': ''  // 替换target中的请求地址，也就是说以后你在请求http://api.douban.com/v2/XXXXX这个地址的时候直接写成/api即可。
         }
       }
     },
@@ -57,7 +78,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
 
     /**
      * Source Maps
