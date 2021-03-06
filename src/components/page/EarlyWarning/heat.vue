@@ -33,9 +33,10 @@ export default {
       })
     },
     _getCityData() {
-      this.$axios.get('./static/data/cityData.json').then((res) => {
-        this.geoCoordMap = res.data
-      })
+      // this.$axios.get('./static/data/cityData.json').then((res) => {
+      //   this.geoCoordMap = res.data
+      // })
+      this.geoCoordMap = require('../../../../static/data/cityData.json')
     },
     convertData(data) {
       let res = [];

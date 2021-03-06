@@ -45,12 +45,16 @@ export default {
       }.bind(this))
     },
     _getCityData() {
-      this.$axios.get('./static/data/cityData.json').then((res) => {
-        this.geoCoordMap = res.data
-        this.$nextTick(() => {
+      this.geoCoordMap =require('../../../../static/data/cityData.json');
+      this.$nextTick(() => {
           this._getMyChart()
-        })
       })
+      // this.$axios.get('./static/data/cityData.json').then((res) => {
+      //   this.geoCoordMap = res.data
+      //   this.$nextTick(() => {
+      //     this._getMyChart()
+      //   })
+      // })
     },
     convertData(data) {
       let res = [];
@@ -71,7 +75,8 @@ export default {
       return res;
     },
     _getMyChart() {
-      this.$axios.get('./static/data/point/testData.json').then((res) => {
+      var testData=require('../../../../static/data/point/testData.json');
+    //  this.$axios.get('./static/data/point/testData.json').then((res) => {
         let options = {
           // backgroundColor: '#404a59',
           title: {
@@ -139,7 +144,7 @@ export default {
                 borderWidth: 1
               }
             },
-            data: this.convertData(res.data)
+            data: this.convertData(testData)
           }, {
             name: '标签2',
             type: 'scatter',
@@ -161,7 +166,7 @@ export default {
                 borderWidth: 1
               }
             },
-            data: this.convertData(res.data)
+            data: this.convertData(testData)
           }, {
             name: '标签3',
             type: 'scatter',
@@ -183,11 +188,11 @@ export default {
                 borderWidth: 1
               }
             },
-            data: this.convertData(res.data)
+            data: this.convertData(testData)
           }]
         }
         this.init(options)
-      });
+     // });
     }
   },
   components: {

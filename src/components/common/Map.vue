@@ -18,10 +18,10 @@ export default {
 	data(){
 		return{
 			map:null,
-			regionArray:null,
+			regionArray:[],
 			windData:null,
 			bounds : L.latLngBounds(L.latLng(34.25, 114.65),  L.latLng(38.55, 122.8)),
-			stationArray:[]			
+			stationArray:[]	
 		}
 	},
 	created(){
@@ -126,27 +126,19 @@ export default {
 				console.log(err)
 			})
 		},
-		getBoundary(){//边界线
-			this.$axios.get('./static/json/map/山东省.json').then(response => {
-				if (response.data) {
-					if(response.data.features){
-						this.regionArray=response.data.features;
-						for(var i=0;i<this.regionArray.length;i++){
-							let {properties,geometry}=this.regionArray[i];							
-							L.geoJson(geometry, {
-								color : "#409EFF",
-								fillColor : "rgba(255,255,255,0.5)",
-								weight : 2,
-								fill : true,
-								zIndex : 0,
-								pane : "shadowPane"
-							}).addTo(this.map)
-						}                 
-					}              
-				}
-			}).catch(err => {
-				console.log(err)
-			})
+		getBoundary(){//边界线	
+			this.regionArray=require('../../../static/json/map/山东省.json').features;
+			for(var i=0;i<this.regionArray.length;i++){
+				let {properties,geometry}=this.regionArray[i];							
+				L.geoJson(geometry, {
+					color : "#409EFF",
+					fillColor : "rgba(255,255,255,0.5)",
+					weight : 2,
+					fill : true,
+					zIndex : 0,
+					pane : "shadowPane"
+				}).addTo(this.map)
+			}
 		},
 		getStation(){
 			this.$axios.get('/api/findAllStation?code=370000&token='+this.$store.state.apiToken).then(response => {
