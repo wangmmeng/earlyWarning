@@ -8,7 +8,9 @@ export const store = new Vuex.Store({
         apiToken:"",
         mapSetShow:false,//地图设置显隐控制
 	   	count: 0,
-	   	color: ['#325B69', '#698570', '#AE5548', '#6D9EA8', '#9CC2B0', '#C98769']
+	   	color: ['#325B69', '#698570', '#AE5548', '#6D9EA8', '#9CC2B0', '#C98769'],
+		GJstationShow:true,
+		QYstationShow:false,
     },
     getter: {
 

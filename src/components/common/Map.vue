@@ -1,7 +1,7 @@
 <template>
 	<div class="wrapper">
 		<v-setting v-show="this.$store.state.mapSetShow"></v-setting>
-		<v-station></v-station>
+		<v-station :stationData="stationArray"></v-station>
 		<div id="map"></div>
 	</div>
 </template>
@@ -21,7 +21,33 @@ export default {
 			regionArray:[],
 			windData:null,
 			bounds : L.latLngBounds(L.latLng(34.25, 114.65),  L.latLng(38.55, 122.8)),
-			stationArray:[]	
+			stationArray:[],
+			GJstationLayer:null,
+			QYstationLayer:null
+		}
+	},
+	 computed:{//这里需要把store 动态的数据放到computed里面才会同步更新 视图
+		myValue(){
+			return this.$store.state.GJstationShow
+		},
+		myValue1(){
+			return this.$store.state.QYstationShow
+		}
+    },
+	watch: {//store 动态动态改变后，需要做其他业务代码
+    	myValue: function(newVal, oldVal) {  
+			if(newVal){
+				this.GJstationLayer.addTo(this.map)
+			}else{
+				this.GJstationLayer.remove()
+			}
+		},
+		myValue1: function(newVal, oldVal) {  
+			if(newVal){
+				this.QYstationLayer.addTo(this.map)
+			}else{
+				this.QYstationLayer.remove()
+			}
 		}
 	},
 	created(){
@@ -112,14 +138,14 @@ export default {
 			this.map.fitBounds(this.bounds);//将地图显示到范围位置
 
 			this.getBoundary()//边界线
-			//this.getApiToken();//获取token			
+			this.getApiToken();//获取token			
 		},
-		getApiToken(){
+		getApiToken(){//获取api接口的token
 			this.$axios.get('/shandongt/commonController.do?getToken').then(response => {
 				if (response.data) {
 					if(response.data.o){
 						this.$store.state.apiToken=response.data.o;
-						this.getStation()//站点
+						this.getStation()//获取所有站点
 					}              
 				}
 			}).catch(err => {
@@ -151,16 +177,18 @@ export default {
 			})
 		},
 		showStation(){
-			var json = {
+			var jsonGJ = {
 				"type": "FeatureCollection",
 				"features": []
 			};
-			var valLayerMarker = L.canvasIconLayer({}).addTo(this.map);
-			var markers = [];
+			var jsonQY = {
+				"type": "FeatureCollection",
+				"features": []
+			};
 			for(let i=0;i<this.stationArray.length;i++){
 				let {lat,lon,name,station_id_c:sid}=this.stationArray[i];
 				if(sid.charAt(0)=="5"){//国家站
-					json.features.push({
+					jsonGJ.features.push({
 						"type": "Feature",
 						"geometry": {
 							"type": "Point",
@@ -169,22 +197,21 @@ export default {
 						"properties" : this.stationArray[i],
 					});
 				}else{
-					var latlon=[lat,lon];
-					var marker=L.marker(latlon, {
-						icon : L.divIcon({
-							className : "aaaa",
-							iconUrl : stationIcon,
-							iconSize: [20, 20],
-							iconAnchor: [10, 10],
-						})
+					jsonQY.features.push({
+						"type": "Feature",
+						"geometry": {
+							"type": "Point",
+							"coordinates": [lon,lat]
+						},
+						"properties" : this.stationArray[i],
 					});
-					markers.push(marker);
 				}				
 			}
-			valLayerMarker.addLayers(markers);
+		//	valLayerMarker.addLayers(markers);
 
-			var station = L.markerClusterGroup();			
-			station = L.geoJson(json, {pointToLayer: function(data, latlng){
+			this.GJstationLayer = L.markerClusterGroup();		
+			this.QYstationLayer = L.markerClusterGroup();	
+			this.GJstationLayer = L.geoJson(jsonGJ, {pointToLayer: function(data, latlng){
 				var html = "<span class='stationId'>" + data.properties.station_id_c +  "</span>" +
 				"<span class='stationName'>" + data.properties.name +  "</span>" +
 				"<span class='stationPoint'></span>" +
@@ -205,7 +232,28 @@ export default {
 					// }
 				})
 			}})
-			station.addTo(this.map)
+			this.QYstationLayer = L.geoJson(jsonQY, {pointToLayer: function(data, latlng){
+				var html = "<span class='stationId'>" + data.properties.station_id_c +  "</span>" +
+				"<span class='stationName'>" + data.properties.name +  "</span>" +
+				"<span class='stationPoint'></span>" +
+				"<span class='stationVal'></span>";
+				
+				return L.marker(latlng, {
+					icon : L.divIcon({
+						html: html,
+						iconSize: [40, 40],
+						iconAnchor: [20, 20],
+						className : "stationIconQY stationIcon"
+					})
+				}).bindTooltip(data.properties.name, {sticky:true}).on("click", function(ev){
+					// if(stationShiKuangConfig.ONOFFSTATE){
+					// 	changguishujuConsole.getStationInfo(data.properties, ev);	
+					// }else{
+					// 	return
+					// }
+				})
+			}})
+			this.GJstationLayer.addTo(this.map)
 		}
 	}
 }
@@ -245,6 +293,9 @@ export default {
 		background: #fdfe00;
 		display: inline-block;
 		border-radius: 99px;
-		border: 1px solid #000;
+		box-shadow: 0 0 5px #000;
+	}
+	div /deep/ .stationIcon.stationIconQY .stationPoint{
+		background: #eee;
 	}
 </style>
