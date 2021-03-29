@@ -29,26 +29,22 @@ export default {
 	props: ['treeData','selectType'],
 	data(){
 		return {
-			checkAll: false,
-			checkedCities: [],
-			cities:[],
-			isIndeterminate: true
+			
 		}
 	},
-	created(){
-		this.treeData.forEach(element => {
-			this.cities.push(element.label)
-		});
+	mounted(){
+		
 	},
 	methods:{
 		expandChange(expand,node){
 			node.expand=!expand;
 		},
 		handleCheckAllChange(checked,node) {
-			node.checked=!checked
-			this.$emit('checkedFatherNode')
+			node.checked=!checked			
 			if (node.children && node.children.length > 0) {
 				this.selectedChildren(node.children,node.checked)
+			}else{
+				this.$emit('checkedFatherNode')
 			}
 		},
 		selectedChildren(node,checked) {
@@ -56,6 +52,8 @@ export default {
 				item.checked = checked
 				if (item.children && item.children.length > 0) {
 					this.selectedChildren(item.children, checked)
+				}else{
+					this.$emit('checkedFatherNode')
 				}
 			})
 		},
@@ -96,11 +94,6 @@ export default {
 		cursor: pointer;
 	}
 
-	/* .dataQuerySelectWindow_stationSelect label:hover,
-	.dataQuerySelectWindow_elementSelect label:hover {
-		background: rgb(0 0 0 / 0.3);
-	} */
-
 	ul b {
 		color: #000;
 		display: inline-block;
@@ -116,10 +109,5 @@ export default {
 	ul b.emptyNode{
 		visibility: hidden;
 	}
-
-	/* .dataQuerySelectWindow_stationSelect b:hover,
-	.dataQuerySelectWindow_elementSelect b:hover {
-		box-shadow: 0 0 5px black;
-	} */
 
 </style>

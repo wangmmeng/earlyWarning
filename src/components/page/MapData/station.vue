@@ -34,7 +34,7 @@
 					</el-form-item>              
 				</el-form>
 				<p>已选择站点：{{checkedNum}}/{{stationNum}}</p>
-				<v-tree :treeData="treeData" :selectType="selectType"></v-tree>
+				<v-tree ref='sTree' :treeData="treeData" :selectType="selectType" @checkedFatherNode="checkedFatherNode()"></v-tree>
 			</el-collapse-item>
 			<el-collapse-item title="要素管理" name="2">
 				<el-form ref="form1" :model="form1" label-width="80px">
@@ -144,12 +144,15 @@ export default {
 		}
 	},
 	watch: {
-		stationData(val) {
-			this.stationArray= val;
+		stationData(newVal) {
+			this.stationArray= newVal;
 			this.organizeData();
-		}
+		},
+		// treeData(newVal){
+		// 	console.log(newVal);
+		// }
 	},
-	created(){
+	mounted(){
 		this.getRegionInfo()
 	},
 	methods:{
@@ -265,7 +268,9 @@ export default {
 					}					
 				}
 			}
-			this.checkedNum=this.stationNum
+			if(this.stationForm.way=="多选"){
+				this.checkedNum=this.stationNum
+			}			
 		},
 		getTreeFatherObj(name){
 			var obj={}
@@ -310,6 +315,22 @@ export default {
 				fatherArr.push(childObj)
 				this.stationNum++				
 			}
+		},
+		checkedFatherNode() {
+			console.log(this.$refs.sTree.treeData);
+			var changeData=this.$refs.sTree.treeData
+			this.checkedNum=0;
+			this.stationCheckedNum(changeData)		
+		},
+		stationCheckedNum(data){
+			data.forEach(element=>{
+				let {checked,children}=element
+				if(children){
+					this.stationCheckedNum(children)		
+				}else{
+					checked?this.checkedNum++:''
+				}
+			})	
 		}
 	}
 }
